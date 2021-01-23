@@ -30,7 +30,7 @@ jobs:
       - name: Lint with flake8
         run: flake8 --statistics *.py
 
-      - name: Run unit tests using pytest
+      - name: Run unit tests using pytest (coverage)
         run: pytest --cov=floodsystem --cov-report term-missing
 
       - name: Run Deliverable 1 code

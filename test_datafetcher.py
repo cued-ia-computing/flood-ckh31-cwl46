@@ -12,12 +12,12 @@ from floodsystem.stationdata import build_station_list
 
 def test_build_station_list():
 
-    # Build list of stations
-    stations = build_station_list(use_cache=False)
+    # Build list of stations    
     stations = build_station_list()
     if os.path.exists("cache\\station_data.json"):
         os.remove("cache\\station_data.json")
     stations = build_station_list()
+    stations = build_station_list(use_cache=False)
 
     # Find station 'Cam'
     for station in stations:
