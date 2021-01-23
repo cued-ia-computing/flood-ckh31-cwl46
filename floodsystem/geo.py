@@ -35,3 +35,22 @@ def stations_by_river(stations):
         stations_rivers[station.river].append(station)
 
     return stations_rivers
+
+
+def rivers_by_station_number(stations, N):
+    """Take the list of monitoring stations as MonitoringStation objects and
+    an integer N. Return a list of tuples in form of (River Name, No. of Stations)
+    of the N rivers with the greatest numbers of monitoring stations. The list is
+    ordered in decreasing number of monitoring stations. All rivers with the same
+    number of stations as the Nth river are included in the list.
+
+    """
+
+    stations_rivers = stations_by_river(stations)
+
+    rivers_station_number = sorted_by_key([(river, len(stations_rivers[river])) for river in stations_rivers], 1, 1)
+
+    stations_number = rivers_station_number[N - 1][1]
+
+    return sorted_by_key([river_tuple for river_tuple in rivers_station_number if
+                         river_tuple[1] >= stations_number], 1, True)
