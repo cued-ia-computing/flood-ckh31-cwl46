@@ -11,7 +11,7 @@ def test_create_monitoring_station():
     # Create a station
     s_id = "test-s-id"
     m_id = "test-m-id"
-    label = "some station"
+    label = ["some station", "another station"]
     coord = (-2.0, 4.0)
     trange = (-2.3, 3.4445)
     river = "River X"
@@ -20,8 +20,9 @@ def test_create_monitoring_station():
 
     assert s.station_id == s_id
     assert s.measure_id == m_id
-    assert s.name == label
+    assert s.name == label[0]
     assert s.coord == coord
     assert s.typical_range == trange
     assert s.river == river
     assert s.town == town
+    assert repr(s) is not None
