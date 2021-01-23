@@ -24,8 +24,9 @@ def fetch(url):
 def dump(data, filename):
     """Save JSON object to file"""
     f = open(filename, 'w')
-    data = json.dump(data, f)
+    json.dump(data, f)
     f.close()
+    return 0
 
 
 def load(filename):
