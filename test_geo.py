@@ -11,7 +11,7 @@ def test_rivers_with_station():
 
     rivers = rivers_with_station(stations)
 
-    assert type(rivers) == set
+    assert type(rivers) == list
 
 
 def test_stations_by_river():

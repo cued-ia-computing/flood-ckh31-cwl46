@@ -18,7 +18,7 @@ def rivers_with_station(stations):
 
     rivers = set(station.river for station in stations if station.river is not None)
 
-    return set(sorted(rivers))
+    return sorted(rivers)
 
 
 def stations_by_river(stations):
