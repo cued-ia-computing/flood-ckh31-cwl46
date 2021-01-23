@@ -12,7 +12,7 @@ from floodsystem.stationdata import build_station_list
 
 def test_build_station_list():
 
-    # Build list of stations    
+    # Build list of stations
     stations = build_station_list()
     if os.path.exists("cache\\station_data.json"):
         os.remove("cache\\station_data.json")
