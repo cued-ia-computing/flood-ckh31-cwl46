@@ -7,7 +7,7 @@ def runB():
     stations = build_station_list
     p = (52.2053, 0.1218)
 
-    List = stations_by_distance(stations , p)
+    List = stations_by_distance(stations, p)
 
     A = input(print("Do you want the list of 10 closest or furthest stations? Please reply with closest or furthest: "))
 
