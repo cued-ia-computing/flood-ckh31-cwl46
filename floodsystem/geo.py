@@ -64,7 +64,7 @@ def stations_by_distance(stations, p):
 
     for i in len(stations):
         from haversine import haversine, Unit
-        distance = haversine(stations.coord,p)
+        distance = float(haversine(stations.coord,p))
         tup = (stations.name , distance)
         L.append(tup)
         L = sorted_by_key(L)
