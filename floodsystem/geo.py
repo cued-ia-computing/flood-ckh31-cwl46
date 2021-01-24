@@ -54,3 +54,18 @@ def rivers_by_station_number(stations, N):
 
     return sorted_by_key([river_tuple for river_tuple in rivers_station_number if
                          river_tuple[1] >= stations_number], 1, True)
+
+def stations_by_distance(stations, p):
+    """Function the calculates distance from point p and sorts
+    by distance from p """
+
+    i = 0
+    L = []
+
+    for i in len(stations):
+        from haversine import haversine, Unit
+        distance = haversine(stations.coord,p)
+        tup = (stations.name , distance)
+        L.append(tup)
+        L = sorted_by_key(L)
+        return L 
