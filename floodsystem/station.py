@@ -29,6 +29,25 @@ class MonitoringStation:
 
         self._latest_level = None
 
+    def typical_range_consistent(self):
+
+        P = True
+        TFList = []
+
+        if self._typical_range == None:
+            P == False
+            tup = (self.name, P)
+            TFList.append(tup)
+        elif self._typical_range < 0:
+            P == False
+            tup = (self.name, P)
+            TFList.append(tup)
+        else:
+            P == True
+            tup = (self.name, P)
+            TFList.append(tup)
+        return TFList
+
     @property
     def station_id(self):
         return self._station_id
@@ -75,3 +94,20 @@ class MonitoringStation:
         d += "   river:         {}\n".format(self.river)
         d += "   typical range: {}".format(self.typical_range)
         return d
+
+def inconsistent_typical_range_stations(stations):
+
+    ListF = [MonitoringStation.typical_range_consistent]
+    i = 0
+    Q = []
+
+    while i < len(ListF):
+        F = [ListF[i]]
+        P = [F[1]]
+        if P == False:
+          Q.append(F)
+        else:
+            ""
+        i += 1
+    return Q
+    
