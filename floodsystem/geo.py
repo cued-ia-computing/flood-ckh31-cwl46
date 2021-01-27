@@ -70,3 +70,21 @@ def stations_by_distance(stations, p):
         L.append(tup)
         L = sorted_by_key(L)
         return L 
+
+def stations_within_radius(stations, centre, r):
+    """Function to find all stations within a radius (r) of centre (centre)
+    and sorts them alphabetically"""
+
+    j = 0
+    D = stations_by_distance(stations, centre)
+    R = []
+    N = []
+
+    for j in len(stations):
+        if stations.distance <= r:
+            N = D[0]
+            R.append(N)
+        else:
+            ""
+        R = sorted(R)
+        return R
