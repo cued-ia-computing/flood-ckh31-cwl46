@@ -34,16 +34,16 @@ class MonitoringStation:
         P = True
         TFList = []
 
-        if self._typical_range == None:
-            P == False
+        if self._typical_range is None:
+            P = False
             tup = (self.name, P)
             TFList.append(tup)
         elif self._typical_range < 0:
-            P == False
+            P = False
             tup = (self.name, P)
             TFList.append(tup)
         else:
-            P == True
+            P = True
             tup = (self.name, P)
             TFList.append(tup)
         return TFList
@@ -95,6 +95,7 @@ class MonitoringStation:
         d += "   typical range: {}".format(self.typical_range)
         return d
 
+
 def inconsistent_typical_range_stations(stations):
 
     ListF = MonitoringStation.typical_range_consistent(stations)
@@ -104,10 +105,9 @@ def inconsistent_typical_range_stations(stations):
     while i < len(ListF):
         F = ListF[i]
         P = F[1]
-        if P == False:
-          Q.append(F)
+        if P is False:
+            Q.append(F)
         else:
             ""
         i += 1
     return Q
-    
