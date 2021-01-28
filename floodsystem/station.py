@@ -97,13 +97,13 @@ class MonitoringStation:
 
 def inconsistent_typical_range_stations(stations):
 
-    ListF = [MonitoringStation.typical_range_consistent]
+    ListF = MonitoringStation.typical_range_consistent(stations)
     i = 0
     Q = []
 
     while i < len(ListF):
-        F = [ListF[i]]
-        P = [F[1]]
+        F = ListF[i]
+        P = F[1]
         if P == False:
           Q.append(F)
         else:
