@@ -63,12 +63,13 @@ def stations_by_distance(stations, p):
     i = 0
     L = []
 
-    for i in len(stations):
+    while i < len(stations):
         from haversine import haversine, Unit
         distance = float(haversine(stations.coord,p))
         tup = (stations.name , distance)
         L.append(tup)
         L = sorted_by_key(L)
+        i += 1
         return L 
 
 def stations_within_radius(stations, centre, r):
@@ -80,11 +81,12 @@ def stations_within_radius(stations, centre, r):
     R = []
     N = []
 
-    for j in len(stations):
+    while j < len(stations):
         if stations.distance <= r:
             N = D[0]
             R.append(N)
         else:
             ""
         R = sorted(R)
+        j += 1
         return R
