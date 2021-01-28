@@ -4,6 +4,7 @@
 """Unit test for the station module"""
 
 from floodsystem.station import MonitoringStation
+from datetime import date
 
 
 def test_create_monitoring_station():
@@ -14,17 +15,23 @@ def test_create_monitoring_station():
     label = ["some station", "another station"]
     coord = (-2.0, 4.0)
     trange = (-2.3, 3.4445)
+    evalues = (-10, 10)
+    catchment = "some catchment"
+    date_open = date(1970, 1, 1)
     river = "River X"
     town = "My Town"
-    s = MonitoringStation(s_id, m_id, label, coord, trange, river, town)
+    s = MonitoringStation(s_id, m_id, label, coord, trange, evalues, river, town, catchment, date_open)
 
     assert s.station_id == s_id
     assert s.measure_id == m_id
     assert s.name == label[0]
     assert s.coord == coord
     assert s.typical_range == trange
+    assert s.extreme_values == evalues
     assert s.river == river
     assert s.town == town
+    assert s.catchment == catchment
+    assert s.date_open == date_open
     assert repr(s) is not None
 
 
@@ -36,9 +43,12 @@ def test_decorators():
     label = ["some station", "another station"]
     coord = (-2.0, 4.0)
     trange = (-2.3, 3.4445)
+    evalues = (-10, 10)
+    catchment = "some catchment"
+    date_open = date(1970, 1, 1)
     river = "River X"
     town = "My Town"
-    s = MonitoringStation(s_id, m_id, label, coord, trange, river, town)
+    s = MonitoringStation(s_id, m_id, label, coord, trange, evalues, river, town, catchment, date_open)
 
     try:
         s.station_id = "changed"
@@ -76,6 +86,13 @@ def test_decorators():
         pass
 
     try:
+        s.extreme_values = "changed"
+        raise AssertionError("extreme_values can be changed.")
+
+    except AttributeError:
+        pass
+
+    try:
         s.river = "changed"
         raise AssertionError("river can be changed.")
 
@@ -85,6 +102,20 @@ def test_decorators():
     try:
         s.town = "changed"
         raise AssertionError("town can be changed.")
+
+    except AttributeError:
+        pass
+
+    try:
+        s.catchment = "changed"
+        raise AssertionError("catchment can be changed.")
+
+    except AttributeError:
+        pass
+
+    try:
+        s.date_open = "changed"
+        raise AssertionError("date_open date can be changed.")
 
     except AttributeError:
         pass

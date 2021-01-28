@@ -6,12 +6,14 @@ for manipulating/modifying station data
 
 """
 
+from datetime import date
+
 
 class MonitoringStation:
     """This class represents a river level monitoring station"""
 
     def __init__(self, station_id, measure_id, label, coord, typical_range,
-                 river, town):
+                 extreme_values, river, town, catchment, date_open):
 
         self._station_id = station_id
         self._measure_id = measure_id
@@ -24,8 +26,11 @@ class MonitoringStation:
 
         self._coord = coord
         self._typical_range = typical_range
+        self._extreme_values = extreme_values
         self._river = river
         self._town = town
+        self._catchment = catchment
+        self._date_open = date_open
 
         self._latest_level = None
 
@@ -34,11 +39,11 @@ class MonitoringStation:
         P = True
         TFList = []
 
-        if self._typical_range is None:
+        if self.typical_range is None:
             P = False
             tup = (self.name, P)
             TFList.append(tup)
-        elif self._typical_range < 0:
+        elif self.typical_range < 0:
             P = False
             tup = (self.name, P)
             TFList.append(tup)
@@ -69,12 +74,24 @@ class MonitoringStation:
         return self._typical_range
 
     @property
+    def extreme_values(self):
+        return self._extreme_values
+
+    @property
     def river(self):
         return self._river
 
     @property
     def town(self):
         return self._town
+
+    @property
+    def catchment(self):
+        return self._catchment
+
+    @property
+    def date_open(self):
+        return self._date_open
 
     @property
     def latest_level(self):
@@ -86,13 +103,16 @@ class MonitoringStation:
         return True
 
     def __repr__(self):
-        d = "Station name:     {}\n".format(self.name)
-        d += "   id:            {}\n".format(self.station_id)
-        d += "   measure id:    {}\n".format(self.measure_id)
-        d += "   coordinate:    {}\n".format(self.coord)
-        d += "   town:          {}\n".format(self.town)
-        d += "   river:         {}\n".format(self.river)
-        d += "   typical range: {}".format(self.typical_range)
+        d = "Station name:      {}\n".format(self.name)
+        d += "   id:             {}\n".format(self.station_id)
+        d += "   measure id:     {}\n".format(self.measure_id)
+        d += "   coordinate:     {}\n".format(self.coord)
+        d += "   town:           {}\n".format(self.town)
+        d += "   river:          {}\n".format(self.river)
+        d += "   catchment:      {}\n".format(self.catchment)
+        d += "   extreme values: {}\n".format(self.extreme_values)
+        d += "   opening date:   {}\n".format(date.isoformat(self.date_open))
+        d += "   typical range:  {}".format(self.typical_range)
         return d
 
 
