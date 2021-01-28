@@ -1,6 +1,7 @@
 from floodsystem.stationdata import build_station_list
 from floodsystem.station import inconsistent_typical_range_stations
 
+
 def run():
 
     stations = build_station_list
@@ -17,6 +18,7 @@ def run():
         U = sorted(Y)
         i += 1
     return U
+
 
 if __name__ == "__main__":
     print("*** Task 1F: CUED Part IA Flood Warning System ***")
