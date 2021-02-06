@@ -34,24 +34,25 @@ class MonitoringStation:
 
         self._latest_level = None
 
+
     def typical_range_consistent(self):
 
         P = True
-        TFList = []
-
+        
         if self.typical_range is None:
-            P = False
-            tup = (self.name, P)
-            TFList.append(tup)
-        elif self.typical_range < 0:
-            P = False
-            tup = (self.name, P)
-            TFList.append(tup)
+          P = False
         else:
-            P = True
-            tup = (self.name, P)
-            TFList.append(tup)
-        return TFList
+             lower = self.typical_range[0]
+             higher = self.typical_range[1] 
+             if lower < 0:
+                P = False
+             elif higher < 0:
+                 P = False
+             elif higher < lower:
+                 P = False
+             else:
+                 P = True
+        return P
 
     @property
     def station_id(self):
@@ -118,16 +119,16 @@ class MonitoringStation:
 
 def inconsistent_typical_range_stations(stations):
 
-    ListF = MonitoringStation.typical_range_consistent(stations)
+    ListF = [station.typical_range_consistent() for station in stations]
     i = 0
-    Q = []
+    Names = []
+    M = [station.name for station in stations]
 
     while i < len(ListF):
-        F = ListF[i]
-        P = F[1]
-        if P is False:
-            Q.append(F)
+        if ListF[i] is False:
+            Names.append(M[i])
         else:
             ""
         i += 1
-    return Q
+
+    return Names
