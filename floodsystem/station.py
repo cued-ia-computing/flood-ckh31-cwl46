@@ -54,6 +54,16 @@ class MonitoringStation:
                  P = True
         return P
 
+
+    def relative_water_level(self):
+
+        typical_low = self.typical_range[0]
+        typical_high = self.typical_range[1]
+        
+        diff = self.latest_level - typical_low 
+        ratio = diff / (typical_high - typical_low)
+        return ratio
+
     @property
     def station_id(self):
         return self._station_id
