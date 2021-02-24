@@ -6,7 +6,7 @@ def run():
 
     stations = build_station_list()
     N = 10
-    
+
     b = stations_highest_rel_level(stations, N)
 
     print(b)
