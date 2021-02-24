@@ -7,9 +7,9 @@ def run():
     stations = build_station_list()
     N = 10
     
-    v = stations_highest_rel_level(stations, N)
+    b = stations_highest_rel_level(stations, N)
 
-    print(v)
+    print(b)
 
 
 if __name__ == "__main__":

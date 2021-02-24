@@ -29,6 +29,7 @@ def stations_highest_rel_level(stations, N):
     r = relative_water_level(stations)
     i = 0
     S = []
+    L = []
 
     for station in stations:
         q = (station.name, r)
@@ -37,4 +38,5 @@ def stations_highest_rel_level(stations, N):
     S = sorted_by_key(S,1)
 
     for i in range(N):
-        print(S[i])
+        L.append(S[i])
+    return L
