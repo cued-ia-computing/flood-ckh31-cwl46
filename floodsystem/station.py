@@ -34,24 +34,19 @@ class MonitoringStation:
 
         self._latest_level = None
 
-
     def typical_range_consistent(self):
 
         P = True
-        
+
         if self.typical_range is None:
-          P = False
+            P = False
         else:
-             lower = self.typical_range[0]
-             higher = self.typical_range[1] 
-             if lower < 0:
+            lower = self.typical_range[0]
+            higher = self.typical_range[1]
+            if higher < lower:
                 P = False
-             elif higher < 0:
-                 P = False
-             elif higher < lower:
-                 P = False
-             else:
-                 P = True
+            else:
+                P = True
         return P
 
 
@@ -132,11 +127,10 @@ def inconsistent_typical_range_stations(stations):
     ListF = [station.typical_range_consistent() for station in stations]
     i = 0
     Names = []
-    M = [station.name for station in stations]
 
     while i < len(ListF):
         if ListF[i] is False:
-            Names.append(M[i])
+            Names.append(stations[i])
         else:
             ""
         i += 1

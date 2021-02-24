@@ -80,11 +80,10 @@ def stations_within_radius(stations, centre, r):
     j = 0
     D = stations_by_distance(stations, centre)
     R = []
-    N = []
 
     while j < len(D):
         if D[j][1] <= r:
-            N = D[0]
+            N = D[j][0]
             R.append(N)
         R = sorted(R)
         j += 1
