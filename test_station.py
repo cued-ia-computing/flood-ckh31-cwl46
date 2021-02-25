@@ -183,5 +183,5 @@ def test_inconsistent_typical_range_stations():
 
     assert type(inconsistent_stations) == list
     assert len(inconsistent_stations) == 2
-    assert (type(station) == MonitoringStation for station in inconsistent_stations)
+    assert all(type(station) == MonitoringStation for station in inconsistent_stations)
     assert inconsistent_stations == [s3, s4]

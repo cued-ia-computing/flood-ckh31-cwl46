@@ -49,7 +49,6 @@ class MonitoringStation:
                 P = True
         return P
 
-
     def relative_water_level(self):
 
         ratio = None
@@ -57,7 +56,7 @@ class MonitoringStation:
         if self.typical_range is not None and self.typical_range_consistent() and self.latest_level is not None:
             typical_low = self.typical_range[0]
             typical_high = self.typical_range[1]
-            diff = self.latest_level - typical_low 
+            diff = self.latest_level - typical_low
             ratio = diff / (typical_high - typical_low)
         return ratio
 
