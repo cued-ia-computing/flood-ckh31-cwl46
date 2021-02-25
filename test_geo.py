@@ -50,7 +50,7 @@ def test_stations_by_distance():
     assert all(type(station) == tuple for station in stations)
     assert all(type(station[0]) == str for station in stations)
     assert all(type(station[1]) == float for station in stations)
-    assert all(stations[i][1] < stations[i + 1][1] for i in range(len(stations) - 1))
+    assert all(stations[i][1] <= stations[i + 1][1] for i in range(len(stations) - 1))
 
 
 def test_stations_within_radius():
