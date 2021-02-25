@@ -10,12 +10,10 @@ def stations_level_over_threshold(stations, tol):
 
     for station in stations:
         if r[i] is not None:
-            q = (station.name, r[i])
+            q = (station, r[i])
             if r[i] > tol:
                 F.append(q)
-                i += 1
-            else:
-                i += 1
+        i += 1
 
     F = sorted_by_key(F, 1, True)
     return F

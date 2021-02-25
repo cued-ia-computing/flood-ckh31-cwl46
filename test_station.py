@@ -156,6 +156,31 @@ def test_typical_range_consistent():
     assert s4.typical_range_consistent() is False
 
 
+def test_relative_water_level():
+    # Create stations
+    s_id = "test-s-id"
+    m_id = "test-m-id"
+    label = ["some station", "another station"]
+    coord = (-2.0, 4.0)
+    trange1 = (-2.3, 3.4445)
+    trange2 = (3.4445, 3.4446)
+    trange3 = None
+    evalues = (-10, 10)
+    catchment = "some catchment"
+    date_open = date(1970, 1, 1)
+    river = "River X"
+    town = "My Town"
+    s1 = MonitoringStation(s_id, m_id, label, coord, trange1, evalues, river, town, catchment, date_open)
+    s1.latest_level = 3.4445
+    s2 = MonitoringStation(s_id, m_id, label, coord, trange2, evalues, river, town, catchment, date_open)
+    s2.latest_level = None
+    s3 = MonitoringStation(s_id, m_id, label, coord, trange3, evalues, river, town, catchment, date_open)
+
+    assert s1.relative_water_level() == 1.0
+    assert s2.relative_water_level() is None
+    assert s3.relative_water_level() is None
+
+
 def test_inconsistent_typical_range_stations():
 
     # Create stations

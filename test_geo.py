@@ -23,8 +23,7 @@ def test_stations_by_river():
     stations_rivers = stations_by_river(stations)
 
     assert type(stations_rivers) == dict
-    for station in stations:
-        assert station.river in stations_rivers.keys()
+    assert all(station.river in stations_rivers.keys() for station in stations)
 
 
 def test_rivers_by_station_number():
