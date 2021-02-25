@@ -10,7 +10,8 @@ def run():
 
     b = stations_highest_rel_level(stations, N)
 
-    print(b)
+    for station in b:
+        print("{} {}".format(station.name, station.relative_water_level()))
 
 
 if __name__ == "__main__":
