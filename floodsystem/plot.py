@@ -63,8 +63,6 @@ def plot_water_levels_ext(stations, datess, levelss, p):
         s.set_title(stations[i].name)
 
     plt.tight_layout()
-    mng = plt.get_current_fig_manager()
-    mng.window.showMaximized()
     plt.show()
 
     return None
