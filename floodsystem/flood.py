@@ -26,7 +26,6 @@ def stations_highest_rel_level(stations, N):
 
     r = [station.relative_water_level() for station in stations]
     S = []
-    L = []
     i = 0
 
     for station in stations:
