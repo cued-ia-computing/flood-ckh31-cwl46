@@ -52,11 +52,19 @@ class MonitoringStation:
 
     def relative_water_level(self):
 
-        typical_low = self.typical_range[0]
-        typical_high = self.typical_range[1]
-        
-        diff = self.latest_level - typical_low 
-        ratio = diff / (typical_high - typical_low)
+        ratio = 1
+
+        if self.typical_range != None:
+            typical_low = self.typical_range[0]
+            typical_high = self.typical_range[1]
+
+            if self.latest_level != None:
+                diff = self.latest_level - typical_low 
+                ratio = diff / (typical_high - typical_low)
+            else:
+                ""
+        else:
+            ""
         return ratio
 
     @property

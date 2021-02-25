@@ -1,5 +1,5 @@
 
-from .station import MonitoringStation, relative_water_level, typical_range_consistent
+from .station import MonitoringStation
 from datetime import date
 from .utils import sorted_by_key
 from .stationdata import build_station_list
@@ -8,35 +8,36 @@ def stations_level_over_threshold(stations, tol):
 
     stations = build_station_list()
     F = []
-    r = relative_water_level(stations)
+    r = [station.relative_water_level() for station in stations]
+    i = 0
     
     for station in stations:
-        if typical_range_consistent(stations) is True:
-            if r > tol:
-                t = (station.name, r)
-                F.append(t)
-            else:
-                ""
-            F = sorted_by_key(F, 1)
+        q = (station.name, r[i])
+        if r[i] > tol:
+            F.append(q)
+            i += 1
         else:
-            ""
+            i += 1
+    
+    F = sorted_by_key(F, 1)
     return F
 
 
 def stations_highest_rel_level(stations, N):
 
     stations = build_station_list()
-    r = relative_water_level(stations)
+    r = [station.relative_water_level() for station in stations]
     i = 0
     S = []
     L = []
 
     for station in stations:
-        q = (station.name, r)
+        q = (station.name, r[i])
         S.append(q)
 
     S = sorted_by_key(S,1)
 
     for i in range(N):
         L.append(S[i])
+        i +=1
     return L
