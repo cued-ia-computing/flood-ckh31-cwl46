@@ -58,14 +58,14 @@ class MonitoringStation:
             typical_low = self.typical_range[0]
             typical_high = self.typical_range[1]
             if self.latest_level is None:
-                ""
+                ratio = None
             elif self.latest_level < 0:
-                ""
+                ratio = None
             else:
                 diff = self.latest_level - typical_low 
                 ratio = diff / (typical_high - typical_low)
         else:
-            ""
+            ratio = None
         return ratio
 
     @property
