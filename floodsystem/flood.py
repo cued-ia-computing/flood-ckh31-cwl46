@@ -31,6 +31,7 @@ def stations_highest_rel_level(stations, N):
     for station in stations:
         q = (station.name, r[i])
         S.append(q)
+        i += 1
 
     S = sorted_by_key(S, 1, True)
 

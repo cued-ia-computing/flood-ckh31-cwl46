@@ -52,17 +52,18 @@ class MonitoringStation:
 
     def relative_water_level(self):
 
-        ratio = 1
+        ratio = 0.0
 
         if self.typical_range != None:
             typical_low = self.typical_range[0]
             typical_high = self.typical_range[1]
-
-            if self.latest_level != None:
+            if self.latest_level is None:
+                ""
+            elif self.latest_level < 0:
+                ""
+            else:
                 diff = self.latest_level - typical_low 
                 ratio = diff / (typical_high - typical_low)
-            else:
-                ""
         else:
             ""
         return ratio
