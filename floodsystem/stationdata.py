@@ -8,6 +8,7 @@ JSON objects fetched from the Internet and
 
 from . import datafetcher
 from .station import MonitoringStation
+from datetime import date
 
 
 def build_station_list(use_cache=True):
@@ -36,12 +37,29 @@ def build_station_list(use_cache=True):
         if 'riverName' in e:
             river = e['riverName']
 
+        # Extract catchment name (not always available)
+        catchment = None
+        if 'catchmentName' in e:
+            catchment = e['catchmentName']
+
+        # Extract opening date (not always available)
+        date_open = None
+        if 'dateOpened' in e:
+            date_open = date.fromisoformat(e['dateOpened'])
+
         # Attempt to extract typical range (low, high)
         try:
             typical_range = (float(e['stageScale']['typicalRangeLow']),
                              float(e['stageScale']['typicalRangeHigh']))
         except Exception:
             typical_range = None
+
+        # Attempt to extract extreme records (low, high)
+        try:
+            extreme_values = (float(e['stageScale']['minOnRecord']['value']),
+                              float(e['stageScale']['maxOnRecord']['value']))
+        except Exception:
+            extreme_values = None
 
         try:
             # Create mesure station object if all required data is
@@ -52,8 +70,11 @@ def build_station_list(use_cache=True):
                 label=e['label'],
                 coord=(float(e['lat']), float(e['long'])),
                 typical_range=typical_range,
+                extreme_values=extreme_values,
                 river=river,
-                town=town)
+                town=town,
+                catchment=catchment,
+                date_open=date_open)
             stations.append(s)
         except Exception:
             # Not all required data on the station was available, so
@@ -63,11 +84,11 @@ def build_station_list(use_cache=True):
     return stations
 
 
-def update_water_levels(stations):
+def update_water_levels(stations, use_cache=False):
     """Attach level data contained in measure_data to stations"""
 
     # Fetch level data
-    measure_data = datafetcher.fetch_latest_water_level_data()
+    measure_data = datafetcher.fetch_latest_water_level_data(use_cache)
 
     # Build map from measure id to latest reading (value)
     measure_id_to_value = dict()

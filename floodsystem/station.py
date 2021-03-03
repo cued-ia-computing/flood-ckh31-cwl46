@@ -6,35 +6,142 @@ for manipulating/modifying station data
 
 """
 
+from datetime import date
+
 
 class MonitoringStation:
     """This class represents a river level monitoring station"""
 
     def __init__(self, station_id, measure_id, label, coord, typical_range,
-                 river, town):
+                 extreme_values, river, town, catchment, date_open):
 
-        self.station_id = station_id
-        self.measure_id = measure_id
+        self._station_id = station_id
+        self._measure_id = measure_id
 
         # Handle case of erroneous data where data system returns
         # '[label, label]' rather than 'label'
-        self.name = label
+        self._name = label
         if isinstance(label, list):
-            self.name = label[0]
+            self._name = label[0]
 
-        self.coord = coord
-        self.typical_range = typical_range
-        self.river = river
-        self.town = town
+        self._coord = coord
+        self._typical_range = typical_range
+        self._extreme_values = extreme_values
+        self._river = river
+        self._town = town
+        self._catchment = catchment
+        self._date_open = date_open
 
-        self.latest_level = None
+        self._latest_level = None
+        self._risk_index = None
+
+    def typical_range_consistent(self):
+
+        P = True
+
+        if self.typical_range is None:
+            P = False
+        else:
+            lower = self.typical_range[0]
+            higher = self.typical_range[1]
+            if higher <= lower:
+                P = False
+        return P
+
+    def relative_water_level(self):
+
+        ratio = None
+
+        if self.typical_range_consistent() and self.latest_level is not None:
+            typical_low = self.typical_range[0]
+            typical_high = self.typical_range[1]
+            diff = self.latest_level - typical_low
+            ratio = diff / (typical_high - typical_low)
+        return ratio
+
+    @property
+    def station_id(self):
+        return self._station_id
+
+    @property
+    def measure_id(self):
+        return self._measure_id
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def coord(self):
+        return self._coord
+
+    @property
+    def typical_range(self):
+        return self._typical_range
+
+    @property
+    def extreme_values(self):
+        return self._extreme_values
+
+    @property
+    def river(self):
+        return self._river
+
+    @property
+    def town(self):
+        return self._town
+
+    @property
+    def catchment(self):
+        return self._catchment
+
+    @property
+    def date_open(self):
+        return self._date_open
+
+    @property
+    def latest_level(self):
+        return self._latest_level
+
+    @latest_level.setter
+    def latest_level(self, latest_level):
+        self._latest_level = latest_level
+        return True
+
+    @property
+    def risk_index(self):
+        return self._risk_index
+
+    @risk_index.setter
+    def risk_index(self, risk_index):
+        self._risk_index = risk_index
+        return True
 
     def __repr__(self):
-        d = "Station name:     {}\n".format(self.name)
-        d += "   id:            {}\n".format(self.station_id)
-        d += "   measure id:    {}\n".format(self.measure_id)
-        d += "   coordinate:    {}\n".format(self.coord)
-        d += "   town:          {}\n".format(self.town)
-        d += "   river:         {}\n".format(self.river)
-        d += "   typical range: {}".format(self.typical_range)
+        d = "Station name:      {}\n".format(self.name)
+        d += "   id:             {}\n".format(self.station_id)
+        d += "   measure id:     {}\n".format(self.measure_id)
+        d += "   coordinate:     {}\n".format(self.coord)
+        d += "   town:           {}\n".format(self.town)
+        d += "   river:          {}\n".format(self.river)
+        d += "   catchment:      {}\n".format(self.catchment)
+        d += "   extreme values: {}\n".format(self.extreme_values)
+        d += "   opening date:   {}\n".format(date.isoformat(self.date_open))
+        d += "   typical range:  {}".format(self.typical_range)
         return d
+
+
+def inconsistent_typical_range_stations(stations):
+
+    ListF = [station.typical_range_consistent() for station in stations]
+    i = 0
+    Names = []
+
+    while i < len(ListF):
+        if ListF[i] is False:
+            Names.append(stations[i])
+        else:
+            ""
+        i += 1
+
+    return Names

@@ -4,6 +4,7 @@
 """Unit test for the stationdata module"""
 
 from floodsystem.stationdata import build_station_list, update_water_levels
+import os
 
 
 def test_build_station_list():
@@ -21,6 +22,10 @@ def test_update_level():
         assert station.latest_level is None
 
     # Update latest level data for all stations
+    update_water_levels(stations, True)
+    if os.path.exists("cache\\level_data.json"):
+        os.remove("cache\\level_data.json")
+    update_water_levels(stations, True)
     update_water_levels(stations)
     counter = 0
     for station in stations:

@@ -9,6 +9,7 @@ latest time history level data
 import datetime
 import json
 import os
+import numpy as np
 
 import dateutil.parser
 import requests
@@ -24,8 +25,9 @@ def fetch(url):
 def dump(data, filename):
     """Save JSON object to file"""
     f = open(filename, 'w')
-    data = json.dump(data, f)
+    json.dump(data, f)
     f.close()
+    return 0
 
 
 def load(filename):
@@ -137,4 +139,9 @@ def fetch_measure_levels(measure_id, dt):
         dates.append(d)
         levels.append(measure['value'])
 
+    try:
+        assert all(type(level) == float for level in levels)
+    except AssertionError:
+        print("Value Error: Data of station {} cannot be fetched".format(measure_id))
+        return dates, np.zeros(len(dates))
     return dates, levels
