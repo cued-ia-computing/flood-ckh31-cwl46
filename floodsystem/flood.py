@@ -42,3 +42,29 @@ def stations_highest_rel_level(stations, N):
     S = sorted_by_key(S, 1, True)
 
     return S[:N]
+
+def station_risk(stations):
+    
+    risk = ""
+    r = [station.relative_water_level() for station in stations]
+    S = []
+    i = 0
+
+    for station in stations:
+        if r[i] > 5:
+            risk = "Severe"
+            q = {"Name":station.name, "Risk":risk}
+            S.append(q)
+        elif r[i] > 3:
+            risk = "High"
+            q = {"Name":station.name, "Risk":risk}
+            S.append(q)
+        elif r[i] > 2:
+            risk = "Moderate"
+            q = {"Rame":station.name, "Risk":risk}
+            S.append(q)
+        else:
+            risk = "Low"
+            q = {"Name":station.name, "Risk":risk}
+            S.append(q)
+    return S
