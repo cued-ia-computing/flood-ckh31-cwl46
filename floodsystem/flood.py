@@ -33,8 +33,6 @@ def stations_highest_rel_level(stations, N):
 
     S = sorted_by_key(S, 1, True)
 
-<<<<<<< HEAD
-    return S[:N]
 
 def station_risk(stations):
     
@@ -61,6 +59,3 @@ def station_risk(stations):
             q = {"Name":station.name, "Risk":risk}
             S.append(q)
     return S
-=======
-    return [s[0] for s in S[:N]]
->>>>>>> 216a1c5ae82a40954d98ea2683ff90960b262fa7
