@@ -33,6 +33,7 @@ class MonitoringStation:
         self._date_open = date_open
 
         self._latest_level = None
+        self._risk_index = None
 
     def typical_range_consistent(self):
 
@@ -43,10 +44,8 @@ class MonitoringStation:
         else:
             lower = self.typical_range[0]
             higher = self.typical_range[1]
-            if higher < lower:
+            if higher <= lower:
                 P = False
-            else:
-                P = True
         return P
 
     def relative_water_level(self):
@@ -107,6 +106,15 @@ class MonitoringStation:
     @latest_level.setter
     def latest_level(self, latest_level):
         self._latest_level = latest_level
+        return True
+
+    @property
+    def risk_index(self):
+        return self._risk_index
+
+    @risk_index.setter
+    def risk_index(self, risk_index):
+        self._risk_index = risk_index
         return True
 
     def __repr__(self):

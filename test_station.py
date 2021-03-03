@@ -128,6 +128,12 @@ def test_decorators():
     except AttributeError:
         raise AssertionError("latest_level cannot be changed.")
 
+    try:
+        s.risk_index = 0
+
+    except AttributeError:
+        raise AssertionError("risk_index cannot be changed.")
+
 
 def test_typical_range_consistent():
 
@@ -151,7 +157,7 @@ def test_typical_range_consistent():
     s4 = MonitoringStation(s_id, m_id, label, coord, trange4, evalues, river, town, catchment, date_open)
 
     assert s1.typical_range_consistent() is True
-    assert s2.typical_range_consistent() is True
+    assert s2.typical_range_consistent() is False
     assert s3.typical_range_consistent() is False
     assert s4.typical_range_consistent() is False
 
@@ -207,6 +213,6 @@ def test_inconsistent_typical_range_stations():
     inconsistent_stations = inconsistent_typical_range_stations(stations)
 
     assert type(inconsistent_stations) == list
-    assert len(inconsistent_stations) == 2
+    assert len(inconsistent_stations) == 3
     assert all(type(station) == MonitoringStation for station in inconsistent_stations)
-    assert inconsistent_stations == [s3, s4]
+    assert inconsistent_stations == [s2, s3, s4]
