@@ -23,8 +23,7 @@ def test_stations_by_river():
     stations_rivers = stations_by_river(stations)
 
     assert type(stations_rivers) == dict
-    for station in stations:
-        assert station.river in stations_rivers.keys()
+    assert all(station.river in stations_rivers.keys() for station in stations)
 
 
 def test_rivers_by_station_number():
@@ -35,7 +34,7 @@ def test_rivers_by_station_number():
     rivers = rivers_by_station_number(stations, 20)
 
     assert type(rivers) == list
-    assert (type(river) == tuple for river in rivers)
+    assert all(type(river) == tuple for river in rivers)
     assert len(rivers) >= 20
 
 
@@ -47,10 +46,10 @@ def test_stations_by_distance():
     stations = stations_by_distance(stations, [0, 0])
 
     assert type(stations) == list
-    assert (type(station) == tuple for station in stations)
-    assert (type(station[0]) == str for station in stations)
-    assert (type(station[1]) == float for station in stations)
-    assert (stations[i][1] < stations[i + 1][1] for i in range(len(stations) - 1))
+    assert all(type(station) == tuple for station in stations)
+    assert all(type(station[0]) == str for station in stations)
+    assert all(type(station[1]) == float for station in stations)
+    assert all(stations[i][1] <= stations[i + 1][1] for i in range(len(stations) - 1))
 
 
 def test_stations_within_radius():
@@ -61,4 +60,4 @@ def test_stations_within_radius():
     stations = stations_within_radius(stations, (52.2053, 0.1218), 20)
 
     assert type(stations) == list
-    assert (type(station) == str for station in stations)
+    assert all(type(station) == str for station in stations)

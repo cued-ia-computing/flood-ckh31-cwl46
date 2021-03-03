@@ -10,7 +10,8 @@ def run():
 
     v = stations_level_over_threshold(stations, tol)
 
-    print(v)
+    for station in v:
+        print("{} {}".format(station[0].name, station[1]))
 
 
 if __name__ == "__main__":
